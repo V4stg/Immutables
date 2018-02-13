@@ -51,7 +51,7 @@ CREATE TABLE exp_categories (
 DROP TABLE IF EXISTS public.incomes;
 DROP SEQUENCE IF EXISTS public.income_id_seq;
 CREATE TABLE incomes (
-    id serial NOT NULL,
+    id SERIAL NOT NULL,
     name VARCHAR(64),
     inc_category_id INTEGER,
     price INTEGER,
@@ -63,7 +63,7 @@ CREATE TABLE incomes (
 DROP TABLE IF EXISTS public.inc_categories;
 DROP SEQUENCE IF EXISTS public.inc_category_id_seq;
 CREATE TABLE inc_categories (
-    id serial NOT NULL,
+    id SERIAL NOT NULL,
     name text
 );
 
