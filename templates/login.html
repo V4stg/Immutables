@@ -2,12 +2,10 @@
 {% block content %}
 <div>
     <form action="/" method='POST'>
-        <input name="username" type="text" placeholder="Username">
-        <input name="password" type="password" placeholder="Password">
+        <input name="username" type="text" placeholder="Username"><br><br>
+        <input name="password" type="password" placeholder="Password"><br><br>
         <button type="submit">Login</button>
     </form>
-    <form action="{{ url_for('registration') }}">
-        <input type="submit" value="Registration"/>
-    </form>
+    <a href="{{ url_for('registration') }}">Registration</a>
 </div>
 {% endblock %}
