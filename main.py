@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/homepage')
 def homepage():
-    return render_template('login.html')
+    return render_template('home.html')
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -52,6 +52,32 @@ def add_income():
         return redirect('/')
     options = data_handler.get_inc_categories()
     return render_template('add_income.html', options=options)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        user_data = data_handler.get_user_by_name(username)
+        if user_data is None:
+            return redirect('/login')
+
+        if hash_handler.verify_password(password, user_data['password']):
+            session['user_id'] = user_data['id']
+            session['username'] = user_data['username']
+            session['name'] = user_data['name']
+            return redirect('/homepage')
+
+        else:
+            return render_template('login.html', alert='invalid password')
+
+    else:
+        return render_template('login.html')
+
+
+
 
 
 if __name__ == '__main__':

@@ -54,3 +54,11 @@ def add_income(cursor, income):
                     VALUES (%(name)s, %(inc_category_id)s,
                     %(price)s, %(submission_time)s, %(user_id)s, %(comment)s)
                     """, income)
+
+
+@database_common.connection_handler
+def get_user_by_name(cursor, username):
+    cursor.execute("""SELECT * FROM users
+                    WHERE username = %(username)s    
+                   """, {'username': username})
+    return cursor.fetchone()
