@@ -8,4 +8,15 @@ def all_users(cursor):
     return users
 
 
-print(all_users())
+@database_common.connection_handler
+def registration(cursor, name, username, password, email):
+    cursor.execute("""INSERT INTO users
+                      VALUES (default, 
+                              %(name)s, 
+                              %(username)s, 
+                              %(password_hash)s, 
+                              %(email)s,
+                              NULL ,
+                              NULL)
+                   """,
+                   {'name': name, 'username': username, 'password_hash': password, 'email': email})
