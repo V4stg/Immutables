@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <h1>Incomes</h1>
+</head>
+<body>
+    <table>
+        <tr>
+            {% for key in table['keys'] %}
+                <th> {{ table['head'][key] }}</th>
+            {% endfor %}
+        </tr>
+        {% for cell in table['body'] %}
+        <tr>
+            {% for key in table['keys'] %}
+                <td>{{ cell[key] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
