@@ -20,7 +20,10 @@ def registration(cursor, name, username, password, email):
                               NULL ,
                               NULL)
                    """,
-                   {'name': name, 'username': username, 'password_hash': password, 'email': email})
+                   {'name': name,
+                    'username': username,
+                    'password_hash': password,
+                    'email': email})
 
 
 @database_common.connection_handler
@@ -36,3 +39,18 @@ def add_expense(cursor, expense):
                     VALUES (%(name)s, %(exp_category_id)s,
                     %(price)s, %(submission_time)s, %(user_id)s, %(comment)s)
                     """, expense)
+
+
+@database_common.connection_handler
+def get_inc_categories(cursor):
+    cursor.execute('''SELECT * FROM inc_categories''')
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def add_income(cursor, income):
+    cursor.execute("""INSERT INTO incomes (name, inc_category_id,
+                    price, submission_time, user_id, comment)
+                    VALUES (%(name)s, %(inc_category_id)s,
+                    %(price)s, %(submission_time)s, %(user_id)s, %(comment)s)
+                    """, income)
