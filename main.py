@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, url_for
-import data_handler
+from flask import Flask, render_template, request, url_for, redirect, session
+import data_handler, hash_handler
 from datetime import datetime
 
 app = Flask(__name__)
