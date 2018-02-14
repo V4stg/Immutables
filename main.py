@@ -5,6 +5,15 @@ from datetime import datetime
 app = Flask(__name__)
 
 
+@app.route('/incomes')
+def show_incomes():
+    data = data_handler.get_all_incomes(session)
+    keys = ['name', 'inc_category', 'price', 'submission_time', 'comment']
+    head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price', 'submission_time': 'Date', 'comment': 'Comment'}
+    table = {'keys': keys, 'head': head, 'body': data}
+    return render_template('list.html', table=table)
+
+
 @app.route('/')
 @app.route('/homepage')
 def homepage():
@@ -15,17 +24,12 @@ def homepage():
 def registration():
     alert = "passwords do not match"
     if request.method == 'POST':
-        name = request.form['name']
-        user_name = request.form['username']
-        password = request.form['password']
-        verified_password = request.form['verify_password']
-        email = request.form['email']
-
-        hash_password = hash_handler.hash_password(password)
-        hash_verified_password = hash_handler.verify_password(verified_password, hash_password)
-
+        user_values = request.form.to_dict()
+        hash_password = hash_handler.hash_password(user_values['password'])
+        hash_verified_password = hash_handler.verify_password(user_values['verify_password'], hash_password)
         if hash_verified_password is True:
-            data_handler.registration(name, user_name, hash_password, email)
+            user_values['password'] = hash_password
+            data_handler.insert_registration_data(user_values)
             return render_template('login.html')
         else:
             return render_template('registration.html', alert=alert)

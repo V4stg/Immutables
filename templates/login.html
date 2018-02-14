@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if alert %}
-<p>{{ alert }}</p><br>
+  <p>{{ alert }}</p><br>
 {% endif %}
 
 <div>
@@ -11,8 +11,6 @@
         <input name="password" type="password" placeholder="Password">
         <button type="submit">Login</button>
     </form>
-    <form action="{{ url_for('registration') }}">
-        <input type="submit" value="Registration"/>
-    </form>
+    <a href="{{ url_for('registration') }}">Registration</a>
 </div>
 {% endblock %}
