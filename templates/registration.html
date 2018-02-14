@@ -4,14 +4,19 @@
 {% if alert %}
 <p>{{ alert }}</p><br>
 {% endif %}
-
+<h1>Registration</h1>
 <div>
     <form method="post" action="/registration">
-        <input name="name" type="text" placeholder="Name"><br>
-        <input name="username" type="text" placeholder="Username"><br>
-        <input name="password" type="text" placeholder="Password"><br>
-        <input name="verify_password" type="text" placeholder="Repeat Password"><br>
-        <input name="email" type="text" placeholder="E-mail"><br>
+        <input name="name" type="text" placeholder="Name" required><br>
+        <p></p>
+        <input name="username" type="text" placeholder="Username" required><br>
+        <p></p>
+        <input name="password" type="text" placeholder="Password" required><br>
+        <p></p>
+        <input name="verify_password" type="text" placeholder="Repeat Password" required><br>
+        <p></p>
+        <input name="email" type="text" placeholder="E-mail" required><br>
+        <p></p>
         <button type="submit" >Submit</button>
     </form>
 </div>
