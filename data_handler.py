@@ -40,13 +40,14 @@ def get_account_history(cursor, session):
                         FROM expenses
                         FULL JOIN exp_categories
                           ON exp_categories.id = expenses.exp_category_id
+                          WHERE user_id = %(user_id)s
                       UNION ALL
                       SELECT 'inc' AS type, incomes.id, incomes.name, price, submission_time, comment,
                         inc_categories.name AS category
                         FROM incomes
                         FULL JOIN inc_categories
                           ON inc_categories.id = incomes.inc_category_id
-                      WHERE user_id = %(user_id)s
+                          WHERE user_id = %(user_id)s
                       ORDER BY submission_time DESC
                     ''', session)
     return cursor.fetchall()
@@ -104,7 +105,7 @@ def add_income(cursor, income):
 
 @database_common.connection_handler
 def delete_expense_by_id(cursor, id):
-    cursor.execute('''DELETE * FROM expenses 
+    cursor.execute('''DELETE FROM expenses 
                       WHERE id = %(id)s  
                    ''', {'id': id})
 
