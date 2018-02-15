@@ -11,7 +11,8 @@ def show_incomes():
         data = data_handler.get_all_incomes(session)
         h2 = 'Incomes'
         keys = ['name', 'inc_category', 'price', 'submission_time', 'comment']
-        head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price', 'submission_time': 'Date', 'comment': 'Comment'}
+        head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price',
+                'submission_time': 'Date', 'comment': 'Comment'}
         table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
         return render_template('list.html', table=table)
     else:
@@ -24,7 +25,24 @@ def show_expenses():
         data = data_handler.get_all_expenses(session)
         h2 = 'Expenses'
         keys = ['name', 'exp_category', 'price', 'submission_time', 'comment']
-        head = {'name': 'Name', 'exp_category': 'Expense category', 'price': 'Price', 'submission_time': 'Date', 'comment': 'Comment'}
+        head = {'name': 'Name', 'exp_category': 'Expense category', 'price': 'Price',
+                'submission_time': 'Date', 'comment': 'Comment'}
+        table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
+        return render_template('list.html', table=table)
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/account_history')
+def show_account_history():
+    if 'user_id' in session:
+        data = data_handler.get_account_history(session)
+        for row in data:
+            print(row)
+        h2 = 'Account history'
+        keys = ['name', 'category', 'price', 'submission_time', 'comment']
+        head = {'name': 'Name', 'category': 'Category', 'price': 'Price',
+                'submission_time': 'Date', 'comment': 'Comment'}
         table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
         return render_template('list.html', table=table)
     else:
