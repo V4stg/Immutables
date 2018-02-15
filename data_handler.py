@@ -22,6 +22,18 @@ def get_all_incomes(cursor, session):
 
 
 @database_common.connection_handler
+def get_all_expenses(cursor, session):
+    cursor.execute('''SELECT expenses.name, exp_category_id, price, submission_time, comment, exp_categories.name 
+                      AS exp_category FROM expenses
+                      INNER JOIN exp_categories 
+                        ON exp_categories.id = expenses.exp_category_id
+                      WHERE user_id = %(user_id)s
+                      ORDER BY submission_time DESC
+                    ''', session)
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
 def insert_registration_data(cursor, user_data):
     cursor.execute('''INSERT INTO users (name, username, password, email, submission_time, role)
                       VALUES (%(name)s, 
