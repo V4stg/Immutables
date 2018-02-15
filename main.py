@@ -93,6 +93,19 @@ def add_income():
     return render_template('add_income.html', options=options)
 
 
+@app.route('/delete-expense/<int:expense_id>')
+def delete_expense(expense_id):
+    if 'user_id' in session:
+        expenses = data_handler.get_all_expenses(session)
+        for row in expenses:
+            if expense_id in row['id']:
+                data_handler.delete_expense_by_id(expense_id)
+
+        return redirect(url_for('show_account_history'))
+    else:
+        return redirect(url_for('login'))
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -114,9 +127,6 @@ def login():
 
     else:
         return render_template('login.html')
-
-
-
 
 
 if __name__ == '__main__':
