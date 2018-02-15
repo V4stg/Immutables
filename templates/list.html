@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
 <head>
-    <h1>Incomes</h1>
+    <h2>{{ table['h2'] }}</h2>
 </head>
 <body>
     <table>
         <tr>
-            {% for key in table['keys'] %}
-                <th> {{ table['head'][key] }}</th>
+            {% for key in table['table_keys'] %}
+                <th> {{ table['table_head'][key] }}</th>
             {% endfor %}
         </tr>
-        {% for cell in table['body'] %}
+        {% for cell in table['table_body'] %}
         <tr>
-            {% for key in table['keys'] %}
+            {% for key in table['table_keys'] %}
                 <td>{{ cell[key] }}</td>
             {% endfor %}
         </tr>
