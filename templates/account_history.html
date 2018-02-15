@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <h2>{{ table['h2'] }}</h2>
+</head>
+<body>
+    <p><a href="/add-income">Add income</a></p>
+    <p><a href="/add-expense">Add expense</a></p>
+    <table>
+        <tr>
+            {% for key in table['table_keys'] %}
+                <th> {{ table['table_head'][key] }}</th>
+            {% endfor %}
+            <th></th>
+        </tr>
+        {% for row in table['table_body'] %}
+        <tr>
+            {% for key in table['table_keys'] %}
+                <td>{{ row[key] }}</td>
+            {% endfor %}
+            <td>
+            {% if row['type'] == 'exp' %}
+                <a href="/delete-expense/{{ row['id'] }}"><img src="static/delete.png" width="20"></a>
+            {% elif row['type'] == 'inc' %}
+                <a href="/delete-income/{{ row['id'] }}"><img src="static/delete.png" width="20"></a>
+            {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

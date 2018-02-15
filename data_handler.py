@@ -111,6 +111,13 @@ def delete_expense_by_id(cursor, id):
 
 
 @database_common.connection_handler
+def delete_income_by_id(cursor, id):
+    cursor.execute('''DELETE FROM incomes
+                      WHERE id = %(id)s
+                   ''', {'id': id})
+
+
+@database_common.connection_handler
 def get_user_by_name(cursor, username):
     cursor.execute('''SELECT * FROM users
                     WHERE username = %(username)s    
