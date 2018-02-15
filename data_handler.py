@@ -1,5 +1,4 @@
 import database_common
-from datetime import datetime
 
 
 @database_common.connection_handler

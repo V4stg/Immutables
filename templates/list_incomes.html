@@ -3,19 +3,19 @@
 {% block content %}
     <h2>{{ table['h2'] }}</h2>
     <a href="/add-income"><img src="static/add.png" width="20"></a>
-    <table>
+    <table class="table table-striped">
         <tr>
             {% for key in table['table_keys'] %}
-                <th> {{ table['table_head'][key] }}</th>
+                <th scope="col"> {{ table['table_head'][key] }}</th>
             {% endfor %}
-            <th></th>
+            <th scope="col"></th>
         </tr>
         {% for row in table['table_body'] %}
         <tr>
             {% for key in table['table_keys'] %}
-                <td>{{ row[key] }}</td>
+                <td scope="row">{{ row[key] }}</td>
             {% endfor %}
-            <td>
+            <td scope="row">
                 <a href="/delete-income/{{ row['id'] }}"><img src="static/delete.png" width="20"></a>
             </td>
         </tr>

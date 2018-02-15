@@ -4,6 +4,7 @@ import data_handler
 import hash_handler
 
 app = Flask(__name__)
+DT_LENGTH = 19
 
 
 @app.route('/incomes')
@@ -12,9 +13,18 @@ def show_incomes():
         data = data_handler.get_all_incomes(session)
         h2 = 'Incomes'
         keys = ['name', 'inc_category', 'price', 'submission_time', 'comment']
-        head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price',
-                'submission_time': 'Date', 'comment': 'Comment'}
-        table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
+        head = {'name': 'Name',
+                'inc_category': 'Income category',
+                'price': 'Price',
+                'submission_time': 'Date',
+                'comment': 'Comment'
+                }
+
+        table = {'h2': h2,
+                 'table_keys': keys,
+                 'table_head': head,
+                 'table_body': data
+                 }
         return render_template('list_incomes.html', table=table)
     else:
         return redirect(url_for('login'))
@@ -26,9 +36,17 @@ def show_expenses():
         data = data_handler.get_all_expenses(session)
         h2 = 'Expenses'
         keys = ['name', 'exp_category', 'price', 'submission_time', 'comment']
-        head = {'name': 'Name', 'exp_category': 'Expense category', 'price': 'Price',
-                'submission_time': 'Date', 'comment': 'Comment'}
-        table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
+        head = {'name': 'Name',
+                'exp_category': 'Expense category',
+                'price': 'Price',
+                'submission_time': 'Date',
+                'comment': 'Comment'
+                }
+        table = {'h2': h2,
+                 'table_keys': keys,
+                 'table_head': head,
+                 'table_body': data
+                 }
         return render_template('list_expenses.html', table=table)
     else:
         return redirect(url_for('login'))
@@ -37,7 +55,7 @@ def show_expenses():
 @app.route('/homepage')
 def home():
     # flash('You have to login first.')
-    return render_template('index.html')
+    return render_template('registration.html')
 
 
 @app.route('/')
@@ -47,9 +65,17 @@ def show_account_history():
         data = data_handler.get_account_history(session)
         h2 = 'Account history'
         keys = ['name', 'category', 'price', 'submission_time', 'comment']
-        head = {'name': 'Name', 'category': 'Category', 'price': 'Price',
-                'submission_time': 'Date', 'comment': 'Comment'}
-        table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
+        head = {'name': 'Name',
+                'category': 'Category',
+                'price': 'Price',
+                'submission_time': 'Date',
+                'comment': 'Comment'
+                }
+        table = {'h2': h2,
+                 'table_keys': keys,
+                 'table_head': head,
+                 'table_body': data
+                 }
         return render_template('account_history.html', table=table)
     else:
         return redirect('/homepage')
@@ -76,7 +102,9 @@ def add_expense():
     if 'user_id' in session:
         if request.method == 'POST':
             expense = request.form.to_dict()
-            expense.update({'user_id': session['user_id'], 'submission_time': datetime.now()})
+            expense.update({'user_id': session['user_id'],
+                            'submission_time': str(datetime.now())[:DT_LENGTH]
+                            })
             data_handler.add_expense(expense)
             return redirect('/expenses')
         options = data_handler.get_exp_categories()
@@ -90,7 +118,9 @@ def add_income():
     if 'user_id' in session:
         if request.method == 'POST':
             income = request.form.to_dict()
-            income.update({'user_id': session['user_id'], 'submission_time': datetime.now()})
+            income.update({'user_id': session['user_id'],
+                           'submission_time': str(datetime.now())[:DT_LENGTH]
+                           })
             data_handler.add_income(income)
             return redirect('/incomes')
         options = data_handler.get_inc_categories()
