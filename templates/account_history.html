@@ -1,9 +1,7 @@
-<!doctype html>
-<html>
-<head>
+{% extends 'header.html' %}
+
+{% block content %}
     <h2>{{ table['h2'] }}</h2>
-</head>
-<body>
     <p><a href="/add-income">Add income</a></p>
     <p><a href="/add-expense">Add expense</a></p>
     <table>
@@ -28,5 +26,4 @@
         </tr>
         {% endfor %}
     </table>
-</body>
-</html>
+{% endblock %}
