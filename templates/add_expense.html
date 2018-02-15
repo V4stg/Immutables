@@ -1,25 +1,22 @@
-<!doctype html>
-<html>
-<head>
+{% extends 'header.html' %}
+
+{% block content %}
     <h1>Add expense</h1>
-</head>
-<body>
-    <form action="/add-expense" method="post">
-        <input type="hidden" name="id" value="">
-        <p><label for="name">Expense's name:</label><br>
-        <input type="text" name="name" id="name" value=""></p>
-        <select name="exp_category_id">
-                {% for option in options %}
-                    <option value = {{ option.id }}>{{ option.name }}</option>
-                {% endfor %}
-        </select>
-        <p><label for="price">Price:</label><br>
-            <input type="integer" name="price" id="price" value=""></p>
-        <input type="hidden" name="submission_time" value="">
-        <input type="hidden" name="user_id" value="">
-        <p><label for="comment">Comment:</label><br>
-        <input type="text" name="comment" id="comment" value=""></p>
-        <p><input type="submit" value="Add expense"></p>
-    </form>
-</body>
-</html>
+<form action="/add-expense" method="post">
+    <input type="hidden" name="id" value="">
+    <p><label for="name">Expense's name:</label><br>
+    <input type="text" name="name" id="name" value=""></p>
+    <select name="exp_category_id">
+            {% for option in options %}
+                <option value = {{ option.id }}>{{ option.name }}</option>
+            {% endfor %}
+    </select>
+    <p><label for="price">Price:</label><br>
+        <input type="integer" name="price" id="price" value=""></p>
+    <input type="hidden" name="submission_time" value="">
+    <input type="hidden" name="user_id" value="">
+    <p><label for="comment">Comment:</label><br>
+    <input type="text" name="comment" id="comment" value=""></p>
+    <p><input type="submit" value="Add expense"></p>
+</form>
+{% endblock %}

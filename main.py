@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, session
+from flask import Flask, render_template, request, url_for, redirect, session, flash
 from datetime import datetime
 import data_handler
 import hash_handler
@@ -34,6 +34,13 @@ def show_expenses():
         return redirect(url_for('login'))
 
 
+@app.route('/homepage')
+def home():
+    # flash('You have to login first.')
+    return render_template('index.html')
+
+
+@app.route('/')
 @app.route('/account_history')
 def show_account_history():
     if 'user_id' in session:
@@ -45,13 +52,7 @@ def show_account_history():
         table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
         return render_template('list.html', table=table)
     else:
-        return redirect(url_for('login'))
-
-
-@app.route('/')
-@app.route('/homepage')
-def homepage():
-    return render_template('home.html')
+        return redirect('/homepage')
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -64,7 +65,7 @@ def registration():
         if hash_verified_password is True:
             user_values['password'] = hash_password
             data_handler.insert_registration_data(user_values)
-            return render_template('login.html')
+            return redirect(url_for('home'))
         else:
             return render_template('registration.html', alert=alert)
     return render_template('registration.html')
@@ -111,17 +112,17 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user_data = data_handler.get_user_by_name(username)
-        if user_data is None:
-            return redirect('/login')
-        if hash_handler.verify_password(password, user_data['password']):
+        if user_data:
+            hash_handler.verify_password(password, user_data['password'])
             session['user_id'] = user_data['id']
             session['username'] = user_data['username']
             session['name'] = user_data['name']
-            return redirect('/homepage')
+            return redirect('/account_history')
         else:
-            return render_template('login.html', alert='invalid password')
+            flash('Invalid username or password')
+            return redirect('/login')
     else:
-        return render_template('login.html')
+        return redirect('/login')
 
 
 @app.route('/logout')
