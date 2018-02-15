@@ -1,0 +1,11 @@
+{% extends 'header.html' %}
+{% block content %}
+<h1>Homepage</h1>
+{% if 'username' in session %}
+<div>
+    <p>Welcome {{ session['name'] }}</p>
+</div>
+{% else %}
+    <a href="{{ url_for('login') }}">Login</a>
+{% endif %}
+{% endblock %}
