@@ -14,7 +14,7 @@ def show_incomes():
         head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price',
                 'submission_time': 'Date', 'comment': 'Comment'}
         table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
-        return render_template('list.html', table=table)
+        return render_template('list_incomes.html', table=table)
     else:
         return redirect(url_for('login'))
 
@@ -28,7 +28,7 @@ def show_expenses():
         head = {'name': 'Name', 'exp_category': 'Expense category', 'price': 'Price',
                 'submission_time': 'Date', 'comment': 'Comment'}
         table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
-        return render_template('list.html', table=table)
+        return render_template('list_expenses.html', table=table)
     else:
         return redirect(url_for('login'))
 
@@ -42,7 +42,7 @@ def show_account_history():
         head = {'name': 'Name', 'category': 'Category', 'price': 'Price',
                 'submission_time': 'Date', 'comment': 'Comment'}
         table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
-        return render_template('list.html', table=table)
+        return render_template('account_history.html', table=table)
     else:
         return redirect(url_for('login'))
 
@@ -98,6 +98,19 @@ def delete_expense(expense_id):
         for row in expenses:
             if expense_id == row['id']:
                 data_handler.delete_expense_by_id(expense_id)
+
+        return redirect(url_for('show_account_history'))
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/delete-income/<int:income_id>')
+def delete_income(income_id):
+    if 'user_id' in session:
+        incomes = data_handler.get_all_incomes(session)
+        for row in incomes:
+            if income_id == row['id']:
+                data_handler.delete_income_by_id(income_id)
 
         return redirect(url_for('show_account_history'))
     else:
