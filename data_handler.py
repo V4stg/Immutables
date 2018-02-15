@@ -70,3 +70,10 @@ def add_income(cursor, income):
                             %(user_id)s,
                             %(comment)s)
                     ''', income)
+
+
+@database_common.connection_handler
+def delete_expense_by_id(cursor, id):
+    cursor.execute('''DELETE * FROM expenses 
+                      WHERE id = %(id)s  
+                   ''', {'id': id})
