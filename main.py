@@ -7,11 +7,28 @@ app = Flask(__name__)
 
 @app.route('/incomes')
 def show_incomes():
-    data = data_handler.get_all_incomes(session)
-    keys = ['name', 'inc_category', 'price', 'submission_time', 'comment']
-    head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price', 'submission_time': 'Date', 'comment': 'Comment'}
-    table = {'keys': keys, 'head': head, 'body': data}
-    return render_template('list.html', table=table)
+    if 'user_id' in session:
+        data = data_handler.get_all_incomes(session)
+        h2 = 'Incomes'
+        keys = ['name', 'inc_category', 'price', 'submission_time', 'comment']
+        head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price', 'submission_time': 'Date', 'comment': 'Comment'}
+        table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
+        return render_template('list.html', table=table)
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/expenses')
+def show_expenses():
+    if 'user_id' in session:
+        data = data_handler.get_all_expenses(session)
+        h2 = 'Expenses'
+        keys = ['name', 'exp_category', 'price', 'submission_time', 'comment']
+        head = {'name': 'Name', 'exp_category': 'Expense category', 'price': 'Price', 'submission_time': 'Date', 'comment': 'Comment'}
+        table = {'h2': h2, 'table_keys': keys, 'table_head': head, 'table_body': data}
+        return render_template('list.html', table=table)
+    else:
+        return redirect(url_for('login'))
 
 
 @app.route('/')
