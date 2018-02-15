@@ -123,3 +123,49 @@ def get_user_by_name(cursor, username):
                     WHERE username = %(username)s    
                    ''', {'username': username})
     return cursor.fetchone()
+
+
+@database_common.connection_handler
+def edit_expense(cursor, expense):
+    print(expense)
+    cursor.execute('''UPDATE expenses 
+                      SET name = %(name)s,
+                          price = %(price)s,
+                          comment = %(comment)s,
+                          exp_category_id = %(exp_category_id)s
+                      WHERE id = %(id)s   
+                   ''', expense)
+
+
+@database_common.connection_handler
+def get_expense_by_id(cursor, id):
+    cursor.execute('''SELECT expenses.id, expenses.name, exp_category_id, price, submission_time, comment, exp_categories.name 
+                      AS exp_category FROM expenses
+                      INNER JOIN exp_categories 
+                        ON exp_categories.id = expenses.exp_category_id
+                      WHERE expenses.id = %(id)s
+                    ''', {'id': id})
+    return cursor.fetchone()
+
+
+@database_common.connection_handler
+def edit_income(cursor, income):
+    print(income)
+    cursor.execute('''UPDATE incomes 
+                      SET name = %(name)s,
+                          price = %(price)s,
+                          comment = %(comment)s,
+                          inc_category_id = %(inc_category_id)s
+                      WHERE id = %(id)s   
+                   ''', income)
+
+
+@database_common.connection_handler
+def get_income_by_id(cursor, id):
+    cursor.execute('''SELECT incomes.id, incomes.name, inc_category_id, price, submission_time, comment, inc_categories.name 
+                      AS inc_category FROM incomes
+                      INNER JOIN inc_categories 
+                        ON inc_categories.id = incomes.inc_category_id
+                      WHERE incomes.id = %(id)s
+                    ''', {'id': id})
+    return cursor.fetchone()
