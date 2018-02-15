@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect, session
-import data_handler, hash_handler
 from datetime import datetime
+import data_handler
+import hash_handler
 
 app = Flask(__name__)
 
@@ -9,8 +10,18 @@ app = Flask(__name__)
 def show_incomes():
     data = data_handler.get_all_incomes(session)
     keys = ['name', 'inc_category', 'price', 'submission_time', 'comment']
-    head = {'name': 'Name', 'inc_category': 'Income category', 'price': 'Price', 'submission_time': 'Date', 'comment': 'Comment'}
-    table = {'keys': keys, 'head': head, 'body': data}
+
+    head = {'name': 'Name',
+            'inc_category': 'Income category',
+            'price': 'Price',
+            'submission_time': 'Date',
+            'comment': 'Comment'
+            }
+
+    table = {'keys': keys,
+             'head': head,
+             'body': data
+             }
     return render_template('list.html', table=table)
 
 
@@ -63,25 +74,25 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         user_data = data_handler.get_user_by_name(username)
         if user_data is None:
             return redirect('/login')
-
         if hash_handler.verify_password(password, user_data['password']):
             session['user_id'] = user_data['id']
             session['username'] = user_data['username']
             session['name'] = user_data['name']
             return redirect('/homepage')
-
         else:
             return render_template('login.html', alert='invalid password')
-
     else:
         return render_template('login.html')
 
 
-
+@app.route('/logout')
+def logout():
+    if session['user_id'] or session['username'] is not None:
+        session.clear()
+    return redirect('/')
 
 
 if __name__ == '__main__':
