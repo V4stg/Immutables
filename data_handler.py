@@ -1,5 +1,4 @@
 import database_common
-from datetime import datetime
 
 
 @database_common.connection_handler
@@ -123,3 +122,15 @@ def get_user_by_name(cursor, username):
                     WHERE username = %(username)s    
                    ''', {'username': username})
     return cursor.fetchone()
+
+
+@database_common.connection_handler
+def get_expenses_price(cursor, session):
+    cursor.execute('''SELECT SUM(price) as price FROM expenses WHERE user_id= %(user_id)s''', session)
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_inc_price(cursor, session):
+    cursor.execute('''SELECT SUM(price) as price FROM incomes WHERE user_id= %(user_id)s''', session)
+    return cursor.fetchall()
