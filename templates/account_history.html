@@ -15,8 +15,10 @@
             {% endfor %}
             <td scope="row">
             {% if row['type'] == 'exp' %}
+                <a href="/edit_expense/{{ row['id'] }}"><img src="static/edit.png" width="20"></a>
                 <a href="/delete-expense/{{ row['id'] }}"><img src="static/delete.png" width="20"></a>
             {% elif row['type'] == 'inc' %}
+                <a href="/edit_income/{{ row['id'] }}"><img src="static/edit.png" width="20"></a>
                 <a href="/delete-income/{{ row['id'] }}"><img src="static/delete.png" width="20"></a>
             {% endif %}
             </td>

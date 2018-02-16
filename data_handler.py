@@ -127,7 +127,6 @@ def get_user_by_name(cursor, username):
 @database_common.connection_handler
 
 def edit_expense(cursor, expense):
-    print(expense)
     cursor.execute('''UPDATE expenses 
                       SET name = %(name)s,
                           price = %(price)s,
@@ -150,7 +149,6 @@ def get_expense_by_id(cursor, id):
 
 @database_common.connection_handler
 def edit_income(cursor, income):
-    print(income)
     cursor.execute('''UPDATE incomes 
                       SET name = %(name)s,
                           price = %(price)s,

@@ -15,10 +15,8 @@
             {% for key in table['table_keys'] %}
                 <td scope="row">{{ row[key] }}</td>
             {% endfor %}
-
-            <td>
-                <a href="/edit_income/{{ row['id'] }}"><img src="static/edit.png" width="20"></a>
             <td scope="row">
+                <a href="/edit_income/{{ row['id'] }}"><img src="static/edit.png" width="20"></a>
                 <a href="/delete-income/{{ row['id'] }}"><img src="static/delete.png" width="20"></a>
             </td>
         </tr>

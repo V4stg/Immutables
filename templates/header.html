@@ -9,7 +9,7 @@
 <nav class="navbar-light navbar-toggleable-md bg-light">
     <div class="row">
         <div class="col-sm-2">
-            <img src="static/piggy.jpg" alt="Logo">
+            <a href="{{ url_for('show_account_history') }}"><img src="/static/piggy.jpg" alt="Logo"></a>
         </div>
         {% if 'username' in session %}
             <div class="col-sm">
