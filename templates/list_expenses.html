@@ -1,0 +1,29 @@
+{% extends 'header.html' %}
+
+{% block content %}
+    <h2>{{ table['h2'] }}</h2>
+    <a href="/add-expense"><img src="static/add.png" width="20"></a>
+    <table class="table table-striped">
+        <tr>
+            {% for key in table['table_keys'] %}
+                <th scope="col"> {{ table['table_head'][key] }}</th>
+            {% endfor %}
+            <th scope="col"></th>
+        </tr>
+        {% for row in table['table_body'] %}
+        <tr>
+            {% for key in table['table_keys'] %}
+                <td scope="row">{{ row[key] }}</td>
+            {% endfor %}
+
+            <td>
+                <a href="/edit_expense/{{ row['id'] }}"><img src="static/edit.png" width="20"></a>
+
+            <td scope="row">
+
+                <a href="/delete-expense/{{ row['id'] }}"><img src="static/delete.png" width="20"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

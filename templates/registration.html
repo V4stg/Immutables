@@ -1,0 +1,30 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm"></div>
+            <div class="col-sm">
+            <h1>Registration</h1>
+            <div>
+                <form method="post" action="/registration">
+                <input name="name" type="text" placeholder="Name" required><br>
+                <p></p>
+                <input name="username" type="text" placeholder="Username" required><br>
+                <p></p>
+                <input name="password" type="password" placeholder="Password" required><br>
+                <p></p>
+                <input name="verify_password" type="password" placeholder="Repeat Password" required><br>
+                <p></p>
+                <input name="email" type="text" placeholder="E-mail" required><br>
+                <p></p>
+                <button type="submit" >Submit</button>
+                </form>
+                {% if alert %}
+                   <p>{{ alert }}</p><br>
+                {% endif %}
+            </div>
+        </div>
+    <div class="col-sm"></div>
+</div>
+</div>
+{% endblock %}

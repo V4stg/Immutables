@@ -1,0 +1,38 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-lg">
+            <h1>Add expense</h1>
+            <form action="/add-expense" method="post">
+                <input type="hidden" name="id" value="">
+                <div class="form-group">
+                    <p><label for="name">Expense's name:</label><br>
+                        <input type="text" class="form-group col-md" name="name" id="name" value=""></p></div>
+                <select name="exp_category_id" class="form-group col-md">
+                    {% for option in options %}
+                        <option value = {{ option.id }}>{{ option.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="form-group col-md">
+                </div>
+                <p><label for="price">Price:</label><br>
+                    <input class="form-group col-md" type="integer" name="price" id="price" value="">
+                </p>
+                <div class="form-group col-md-3">
+                </div>
+                <input type="hidden" name="submission_time" value="">
+                <input type="hidden" name="user_id" value="">
+                <p><label for="comment">Comment:</label><br>
+                    <input class="form-group col-md" type="text" name="comment" id="comment" value="">
+                </p>
+                <p><input type="submit" value="Add expense"></p>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
