@@ -54,7 +54,6 @@ def show_expenses():
 
 @app.route('/homepage')
 def home():
-    # flash('You have to login first.')
     return render_template('registration.html')
 
 
@@ -76,7 +75,8 @@ def show_account_history():
                  'table_head': head,
                  'table_body': data
                  }
-        return render_template('account_history.html', table=table)
+        balance = 0     # data_handler.get_balance(session)
+        return render_template('account_history.html', table=table, balance=balance )
     else:
         return redirect('/homepage')
 

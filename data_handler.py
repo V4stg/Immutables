@@ -122,3 +122,13 @@ def get_user_by_name(cursor, username):
                     WHERE username = %(username)s    
                    ''', {'username': username})
     return cursor.fetchone()
+
+
+@database_common.connection_handler
+def get_balance(cursor, session):
+    cursor.execute('''SELECT incomes.price, expenses.price FROM incomes
+                      JOIN expenses
+                        ON incomes.user_id = expenses.user_id
+                    WHERE user_id = %(user_id)s    
+                   ''', session)
+    return cursor.fetcall()
