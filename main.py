@@ -189,6 +189,36 @@ def logout():
     return redirect('/')
 
 
+@app.route('/edit_expense/<int:expense_id>', methods=['GET', 'POST'])
+def edit_expense(expense_id):
+    if 'user_id' in session:
+        if request.method == 'POST':
+            expense = request.form.to_dict()
+            expense.update({'user_id': session['user_id'], 'submission_time': datetime.now()})
+            data_handler.edit_expense(expense)
+            return redirect('/expenses')
+        options = data_handler.get_exp_categories()
+        expense = data_handler.get_expense_by_id(expense_id)
+        return render_template('edit_expense.html', options=options, expense=expense)
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/edit_income/<int:income_id>', methods=['GET', 'POST'])
+def edit_income(income_id):
+    if 'user_id' in session:
+        if request.method == 'POST':
+            income = request.form.to_dict()
+            income.update({'user_id': session['user_id'], 'submission_time': datetime.now()})
+            data_handler.edit_income(income)
+            return redirect('/incomes')
+        options = data_handler.get_inc_categories()
+        income = data_handler.get_income_by_id(income_id)
+        return render_template('edit_income.html', options=options, income=income)
+    else:
+        return redirect(url_for('login'))
+
+
 if __name__ == '__main__':
     app.secret_key = '\xf2=F\xad\xac\xa85&!UP=\xf7\x8eo,o\xbfE\xca\xc2~\xfce'
     app.run(
