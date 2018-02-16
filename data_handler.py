@@ -125,10 +125,12 @@ def get_user_by_name(cursor, username):
 
 
 @database_common.connection_handler
-def get_balance(cursor, session):
-    cursor.execute('''SELECT incomes.price, expenses.price FROM incomes
-                      JOIN expenses
-                        ON incomes.user_id = expenses.user_id
-                    WHERE user_id = %(user_id)s    
-                   ''', session)
-    return cursor.fetcall()
+def get_expenses_price(cursor, session):
+    cursor.execute('''SELECT SUM(price) as price FROM expenses WHERE user_id= %(user_id)s''', session)
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_inc_price(cursor, session):
+    cursor.execute('''SELECT SUM(price) as price FROM incomes WHERE user_id= %(user_id)s''', session)
+    return cursor.fetchall()

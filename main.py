@@ -75,7 +75,9 @@ def show_account_history():
                  'table_head': head,
                  'table_body': data
                  }
-        balance = 0     # data_handler.get_balance(session)
+        exp = data_handler.get_expenses_price(session)
+        inc = data_handler.get_inc_price(session)
+        balance = (inc[0]['price'] - exp[0]['price'])
         return render_template('account_history.html', table=table, balance=balance )
     else:
         return redirect('/homepage')

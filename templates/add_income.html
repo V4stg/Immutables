@@ -2,29 +2,35 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-lg">
     </div>
-    <div class="col-sm">
+    <div class="col-lg">
         <h1>Add income</h1>
         <form action="/add-income" method="post">
             <input type="hidden" name="id" value="">
-            <p><label for="name">Income's name:</label><br>
-            <input type="text" name="name" id="name" value=""></p>
-            <select name="inc_category_id">
-                    {% for option in options %}
-                        <option value = {{ option.id }}>{{ option.name }}</option>
-                    {% endfor %}
+            <div class="form-group">
+                <p><label for="name">Income's name:</label><br>
+                <input type="text" class="form-group col-md" name="name" id="name" value=""></p>
+            </div>
+            <select name="inc_category_id" class="form-group col-md">
+                {% for option in options %}
+                    <option value = {{ option.id }}>{{ option.name }}</option>
+                {% endfor %}
             </select>
+            <div class="form-group col-md">
+            </div>
             <p><label for="price">Price:</label><br>
-                <input type="integer" name="price" id="price" value=""></p>
+                <input type="integer" class="form-group col-md" name="price" id="price" value=""></p>
+            <div class="form-group col-md-3">
+                </div>
             <input type="hidden" name="submission_time" value="">
             <input type="hidden" name="user_id" value="">
             <p><label for="comment">Comment:</label><br>
-            <input type="text" name="comment" id="comment" value=""></p>
+            <input type="text"  class="form-group col-md" name="comment" id="comment" value=""></p>
             <p><input type="submit" value="Add income"></p>
         </form>
     </div>
-    <div class="col-sm">
+    <div class="col-lg">
     </div>
   </div>
 </div>
