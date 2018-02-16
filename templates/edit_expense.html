@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <h1>Edit expense</h1>
+</head>
+<body>
+    <form action="/edit_expense/{{ expense['id'] }}" method="post">
+        <input type="hidden" name="id" value={{ expense['id'] }}>
+        <p><label for="name">Expense's name:</label><br>
+        <input type="text" name="name" id="name" value={{ expense['name'] }}></p>
+        <select name="exp_category_id">
+                {% for option in options %}
+                    <option value = {{ option.id }}>{{ option.name }}</option>
+                {% endfor %}
+        </select>
+        <p><label for="price">Price:</label><br>
+            <input type="integer" name="price" id="price" value={{ expense['price'] }}></p>
+        <input type="hidden" name="submission_time" value={{ 'submission_time' }}>
+        <input type="hidden" name="user_id" value={{ expense['user_id'] }}>
+        <p><label for="comment">Comment:</label><br>
+        <input type="text" name="comment" id="comment" value={{ expense['comment'] }}></p>
+        <p><input type="submit" value="Edit expense"></p>
+    </form>
+</body>
+</html>
