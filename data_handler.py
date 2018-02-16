@@ -170,6 +170,8 @@ def get_income_by_id(cursor, id):
                     ''', {'id': id})
     return cursor.fetchone()
 
+
+@database_common.connection_handler
 def get_expenses_price(cursor, session):
     cursor.execute('''SELECT SUM(price) as price FROM expenses WHERE user_id= %(user_id)s''', session)
     return cursor.fetchall()
